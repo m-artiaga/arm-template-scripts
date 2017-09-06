@@ -15,10 +15,13 @@ function main()
     availabilitySet $1 $2
 
     # execute nic command
-    security_groups $1 $2
+    nics $1 $2
 
     # execute ip command
     public_ips $1 $2
+
+    # execute nic command
+    security_groups $1 $2
 
     # execute load balancer command
     load_balancer $1 $2
@@ -90,7 +93,7 @@ function availabilitySet()
                 ;;
             delete)
                 echo "deleting availability-set ${A_SET}"
-                az vm availability-set delete --name ${A_SET} -g eastus2-pstelasticsearch-sandbox-rg --no-wait
+                az vm availability-set delete --name ${A_SET} -g eastus2-pstelasticsearch-sandbox-rg
                 ;;
         esac
     done
@@ -111,7 +114,7 @@ function nics()
                 ;;
             delete)
                 echo "deleting nic ${NIC}"
-                az network nic delete --name ${NIC} -g eastus2-pstelasticsearch-sandbox-rg --no-wait
+                az network nic delete --name ${NIC} -g eastus2-pstelasticsearch-sandbox-rg
                 ;;
         esac
     done
