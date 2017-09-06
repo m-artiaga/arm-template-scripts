@@ -44,7 +44,7 @@ function vms()
                 ;;
             start)
                 echo "starting vm ${VM}"
-                az vm start --name ${VM} -g eastus2-pstelasticsearch-sandbox-rg
+                az vm start --name ${VM} -g eastus2-pstelasticsearch-sandbox-rg --no-wait
                 ;;
             delete)
                 echo "deleting vm ${VM}"
