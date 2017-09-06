@@ -43,7 +43,7 @@ function vms()
                 az vm stop --name ${VM} -g eastus2-pstelasticsearch-sandbox-rg
                 ;;
             start)
-                echo "stopping vm ${VM}"
+                echo "starting vm ${VM}"
                 az vm start --name ${VM} -g eastus2-pstelasticsearch-sandbox-rg
                 ;;
             delete)
