@@ -43,7 +43,7 @@ function vms()
                 ;;
             stop)
                 echo "stopping vm ${VM}"
-                az vm stop --name ${VM} -g eastus2-pstelasticsearch-sandbox-rg
+                az vm stop --name ${VM} -g eastus2-pstelasticsearch-sandbox-rg --no-wait
                 ;;
             start)
                 echo "starting vm ${VM}"
