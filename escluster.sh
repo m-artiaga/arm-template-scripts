@@ -17,15 +17,15 @@ function main()
     # execute nic command
     nics $1 $2
 
+    # execute load balancer command
+    load_balancer $1 $2
+    
     # execute ip command
     public_ips $1 $2
 
     # execute nic command
     security_groups $1 $2
 
-    # execute load balancer command
-    load_balancer $1 $2
-    
 }
 
 function vms()
