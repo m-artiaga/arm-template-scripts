@@ -135,7 +135,7 @@ function security_groups()
                 ;;
             delete)
                 echo "deleting nsg ${NSG}"
-                az network nsg delete --name ${NSG} -g eastus2-pstelasticsearch-sandbox-rg --no-wait
+                az network nsg delete --name ${NSG} -g eastus2-pstelasticsearch-sandbox-rg
                 ;;
         esac
     done
