@@ -51,9 +51,19 @@ function vms()
                 ;;
             delete)
                 echo "deleting vm ${VM}"
-                az vm delete --name ${VM} -g eastus2-pstelasticsearch-sandbox-rg --yes
+                az vm delete --name ${VM} -g eastus2-pstelasticsearch-sandbox-rg --yes --no-wait
                 ;;                
         esac
+    done
+
+    # action is delete, don't exit until all vms are deleted
+    # we don't want other resources that's tied to undeleted vm being deleted....it could cause some issue if we do
+    local TERMINATE=99
+    while [[ ${TERMINATE} > 1 && ${ACTION} = "delete" ]];
+    do
+        echo "deleting vms....."
+        VMS=`az vm list --resource-group eastus2-pstelasticsearch-sandbox-rg -o json --query "[].name" | grep ${CLUSTER_NAME} | awk '{ gsub(/[,"]/,"",$1); print $1 }'`
+        TERMINATE=${#VMS[@]}
     done
 }
 
@@ -93,7 +103,7 @@ function availabilitySet()
                 ;;
             delete)
                 echo "deleting availability-set ${A_SET}"
-                az vm availability-set delete --name ${A_SET} -g eastus2-pstelasticsearch-sandbox-rg
+                az vm availability-set delete --name ${A_SET} -g eastus2-pstelasticsearch-sandbox-rg --no-wait
                 ;;
         esac
     done
@@ -114,7 +124,7 @@ function nics()
                 ;;
             delete)
                 echo "deleting nic ${NIC}"
-                az network nic delete --name ${NIC} -g eastus2-pstelasticsearch-sandbox-rg
+                az network nic delete --name ${NIC} -g eastus2-pstelasticsearch-sandbox-rg --no-wait
                 ;;
         esac
     done
@@ -135,7 +145,7 @@ function security_groups()
                 ;;
             delete)
                 echo "deleting nsg ${NSG}"
-                az network nsg delete --name ${NSG} -g eastus2-pstelasticsearch-sandbox-rg
+                az network nsg delete --name ${NSG} -g eastus2-pstelasticsearch-sandbox-rg --no-wait
                 ;;
         esac
     done
