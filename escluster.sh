@@ -93,7 +93,7 @@ function availabilitySet()
                 ;;
             delete)
                 echo "deleting availability-set ${A_SET}"
-                az vm availability-set delete --name ${A_SET} -g eastus2-pstelasticsearch-sandbox-rg --no-wait
+                az vm availability-set delete --name ${A_SET} -g eastus2-pstelasticsearch-sandbox-rg
                 ;;
         esac
     done
