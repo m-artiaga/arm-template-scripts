@@ -43,27 +43,17 @@ function vms()
                 ;;
             stop)
                 echo "stopping vm ${VM}"
-                az vm stop --name ${VM} -g eastus2-pstelasticsearch-sandbox-rg --no-wait
+                az vm stop --name ${VM} -g eastus2-pstelasticsearch-sandbox-rg
                 ;;
             start)
                 echo "starting vm ${VM}"
-                az vm start --name ${VM} -g eastus2-pstelasticsearch-sandbox-rg --no-wait
+                az vm start --name ${VM} -g eastus2-pstelasticsearch-sandbox-rg
                 ;;
             delete)
                 echo "deleting vm ${VM}"
-                az vm delete --name ${VM} -g eastus2-pstelasticsearch-sandbox-rg --yes --no-wait
+                az vm delete --name ${VM} -g eastus2-pstelasticsearch-sandbox-rg --yes
                 ;;                
         esac
-    done
-
-    # action is delete, don't exit until all vms are deleted
-    # we don't want other resources that's tied to undeleted vm being deleted....it could cause some issue if we do
-    local TERMINATE=99
-    while [[ ${TERMINATE} > 1 && (${ACTION} = "delete" || ${ACTION} = "stop")]];
-    do
-        echo "deleting vms....."
-        VMS=`az vm list --resource-group eastus2-pstelasticsearch-sandbox-rg -o json --query "[].name" | grep ${CLUSTER_NAME} | awk '{ gsub(/[,"]/,"",$1); print $1 }'`
-        TERMINATE=${#VMS[@]}
     done
 }
 
@@ -124,7 +114,7 @@ function nics()
                 ;;
             delete)
                 echo "deleting nic ${NIC}"
-                az network nic delete --name ${NIC} -g eastus2-pstelasticsearch-sandbox-rg --no-wait
+                az network nic delete --name ${NIC} -g eastus2-pstelasticsearch-sandbox-rg
                 ;;
         esac
     done
