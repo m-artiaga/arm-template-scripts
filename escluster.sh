@@ -59,7 +59,7 @@ function vms()
     # action is delete, don't exit until all vms are deleted
     # we don't want other resources that's tied to undeleted vm being deleted....it could cause some issue if we do
     local TERMINATE=99
-    while [[ ${TERMINATE} > 1 && ${ACTION} = "delete" ]];
+    while [[ ${TERMINATE} > 1 && (${ACTION} = "delete" || ${ACTION} = "stop")]];
     do
         echo "deleting vms....."
         VMS=`az vm list --resource-group eastus2-pstelasticsearch-sandbox-rg -o json --query "[].name" | grep ${CLUSTER_NAME} | awk '{ gsub(/[,"]/,"",$1); print $1 }'`
